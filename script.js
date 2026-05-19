@@ -56,7 +56,7 @@ function handleContactSubmit(e) {
   const body = encodeURIComponent(
     `Name: ${data.name}\nEmail: ${data.email}\nCompany: ${data.company || '-'}\n\n${data.message}`
   );
-  window.location.href = `mailto:hello@customskills.ai?subject=${subject}&body=${body}`;
+  window.location.href = `mailto:joseph@customskillsllc.com?subject=${subject}&body=${body}`;
   return false;
 }
 window.handleContactSubmit = handleContactSubmit;

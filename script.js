@@ -47,7 +47,7 @@ document
     observer.observe(el);
   });
 
-// Contact form (frontend-only stub — wire to a real endpoint later)
+// Contact form (frontend-only stub; wire to a real endpoint later)
 function handleContactSubmit(e) {
   e.preventDefault();
   const form = e.target;

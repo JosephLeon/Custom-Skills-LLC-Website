@@ -434,6 +434,23 @@ p { margin: 0 0 1em; color: var(--text-muted); }
 }
 .service-link:hover { color: #fff; }
 
+.service-card-wide {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+.service-card-wide .service-icon { margin-bottom: 0; }
+.service-card-wide h3 { margin-bottom: 12px; }
+.service-card-wide .service-wide-body { max-width: 100%; }
+.service-list-wide {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 28px;
+  row-gap: 8px;
+}
+
 /* ---------- Approach ---------- */
 .approach {
   padding: 110px 0;
@@ -670,6 +687,8 @@ p { margin: 0 0 1em; color: var(--text-muted); }
   .hero-grid, .approach-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 50px; }
   .hero-visual { height: 380px; }
   .service-grid { grid-template-columns: 1fr; }
+  .service-card-wide { grid-template-columns: 1fr; gap: 20px; }
+  .service-list-wide { grid-template-columns: 1fr; }
   .cap-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr; gap: 40px; }
 }

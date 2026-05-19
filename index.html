@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom Skills LLC — AI Strategy & Implementation</title>
+  <meta name="description" content="Custom Skills LLC builds reasoning engines, RAG systems, MCP infrastructure, and autonomous AI agents that transform raw business data into operational assets." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="container nav-container">
+      <a href="#top" class="logo">
+        <span class="logo-mark">CS</span>
+        <span class="logo-text">Custom Skills <span class="logo-llc">LLC</span></span>
+      </a>
+      <nav class="primary-nav" aria-label="Primary">
+        <a href="#services">Services</a>
+        <a href="#approach">Approach</a>
+        <a href="#capabilities">Capabilities</a>
+        <a href="#about">About</a>
+        <a href="#contact" class="nav-cta">Contact</a>
+      </nav>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="eyebrow">AI Strategy & Implementation</div>
+          <h1>We build <span class="gradient-text">reasoning engines</span> that run your business.</h1>
+          <p class="lede">
+            End-to-end AI engineering and strategic integration. We transform raw data
+            into autonomous business assets — systems that don't just process text,
+            but execute complex workflows, manage internal knowledge, and engage
+            customers with expert-level precision.
+          </p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-primary">Book a discovery call</a>
+            <a href="#services" class="btn btn-ghost">Explore services →</a>
+          </div>
+          <ul class="hero-trust">
+            <li><strong>RAG</strong> Grounded retrieval</li>
+            <li><strong>MCP</strong> Secure connectivity</li>
+            <li><strong>Agentic</strong> Autonomous execution</li>
+          </ul>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="orb"></div>
+          <div class="grid-overlay"></div>
+          <div class="code-card">
+            <div class="code-card-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="code-title">reasoning-engine.ts</span>
+            </div>
+            <pre><code><span class="c-key">const</span> <span class="c-var">agent</span> = <span class="c-fn">createReasoner</span>({
+  <span class="c-prop">knowledge</span>: <span class="c-str">"vector://company.kb"</span>,
+  <span class="c-prop">tools</span>: [<span class="c-str">"crm"</span>, <span class="c-str">"jira"</span>, <span class="c-str">"slack"</span>],
+  <span class="c-prop">guardrails</span>: <span class="c-str">"human-in-loop"</span>,
+});
+
+<span class="c-comment">// Autonomous, grounded, auditable.</span>
+<span class="c-key">await</span> agent.<span class="c-fn">execute</span>(objective);</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="logos-strip">
+      <div class="container">
+        <p class="strip-label">Built on the modern AI stack</p>
+        <div class="logos">
+          <span>Anthropic Claude</span>
+          <span>OpenAI</span>
+          <span>Pinecone</span>
+          <span>Weaviate</span>
+          <span>Milvus</span>
+          <span>MCP</span>
+          <span>LangGraph</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="services">
+      <div class="container">
+        <header class="section-header">
+          <div class="eyebrow">Core Competencies</div>
+          <h2>Four practices. One operating system for AI.</h2>
+          <p class="section-sub">
+            We deliver custom-engineered AI systems across four interconnected
+            disciplines — each designed to move your business from passive
+            chatbots to autonomous operations.
+          </p>
+        </header>
+
+        <div class="service-grid">
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/>
+                <path d="M8 8h8M8 12h8M8 16h5"/>
+              </svg>
+            </div>
+            <h3>Knowledge Orchestration & RAG</h3>
+            <p>
+              Proprietary "spheres of knowledge" that ground AI responses in
+              <em>your</em> data — not general training sets. The AI never
+              guesses, always cites, and stays current as your documents evolve.
+            </p>
+            <ul class="service-list">
+              <li>Advanced retrieval with Pinecone, Weaviate, Milvus</li>
+              <li>Website-specific concierges & expert bots</li>
+              <li>Source-linked citations for 100% verifiability</li>
+            </ul>
+            <a href="#contact" class="service-link">Discuss a RAG build →</a>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <circle cx="6" cy="12" r="2.5"/>
+                <circle cx="18" cy="6" r="2.5"/>
+                <circle cx="18" cy="18" r="2.5"/>
+                <path d="M8.2 11l7.6-4M8.2 13l7.6 4"/>
+              </svg>
+            </div>
+            <h3>Connectivity & Infrastructure (MCP)</h3>
+            <p>
+              We specialize in the Model Context Protocol — building secure
+              bridges that give reasoning engines direct, audited access to
+              your internal tools, databases, and file systems.
+            </p>
+            <ul class="service-list">
+              <li>Custom MCP servers for internal APIs & datastores</li>
+              <li>AI-native architecture for high-token workflows</li>
+              <li>Private — your data never leaves your walls</li>
+            </ul>
+            <a href="#contact" class="service-link">Design an integration →</a>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>
+                <circle cx="12" cy="12" r="3.5"/>
+              </svg>
+            </div>
+            <h3>Agentic Operations & Marketing</h3>
+            <p>
+              Move past "chat" into action. We deploy agents that perform
+              multi-step tasks across platforms — autonomous lead generation,
+              content distribution, and personalized customer journeys.
+            </p>
+            <ul class="service-list">
+              <li>Autonomous landing-page generation at SEO scale</li>
+              <li>Lead qualification & nurture pipelines</li>
+              <li>Human-in-the-loop approval guardrails</li>
+            </ul>
+            <a href="#contact" class="service-link">Launch an agent →</a>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <rect x="3" y="4" width="18" height="16" rx="2"/>
+                <path d="M3 9h18M8 14l2 2 4-4"/>
+              </svg>
+            </div>
+            <h3>Internal Business Solutions</h3>
+            <p>
+              An invisible, hyper-efficient Chief of Staff for your operations.
+              We automate compliance audits, project timelines, and
+              cross-department coordination — inside the tools you already use.
+            </p>
+            <ul class="service-list">
+              <li>Slack, GitHub, Jira, ClickUp, CRM integrations</li>
+              <li>Continuous compliance & security monitoring</li>
+              <li>Autonomous project tracking & anomaly flagging</li>
+            </ul>
+            <a href="#contact" class="service-link">Map your workflow →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="approach" class="approach">
+      <div class="container approach-grid">
+        <div class="approach-copy">
+          <div class="eyebrow">Our Approach</div>
+          <h2>From raw data to autonomous asset.</h2>
+          <p>
+            Most "AI projects" stall because they treat the model as the
+            product. We treat the model as one component in an integrated
+            reasoning system — wired into your knowledge, your tools, and
+            your guardrails.
+          </p>
+          <p>
+            We've built our practice around a simple conviction: AI delivers
+            real ROI when it can <strong>retrieve grounded facts</strong>,
+            <strong>act on connected systems</strong>, and
+            <strong>operate within trusted guardrails</strong>. Every
+            engagement is engineered against those three pillars.
+          </p>
+        </div>
+        <ol class="approach-steps">
+          <li>
+            <span class="step-num">01</span>
+            <div>
+              <h4>Discovery & Architecture</h4>
+              <p>We map your data silos, internal tools, and the workflows that bleed the most hours. The output is a concrete system design.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">02</span>
+            <div>
+              <h4>Build & Ground</h4>
+              <p>We engineer the retrieval layer, MCP connectors, and reasoning agents — grounded in your data with verifiable source citations.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">03</span>
+            <div>
+              <h4>Deploy & Operate</h4>
+              <p>We integrate inside your existing stack with human-in-the-loop controls, observability, and continuous evaluation.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="capabilities" class="capabilities">
+      <div class="container">
+        <header class="section-header">
+          <div class="eyebrow">Capabilities Snapshot</div>
+          <h2>What we ship.</h2>
+        </header>
+        <div class="cap-grid">
+          <div class="cap-item"><span>01</span><p>High-accuracy document retrieval with vector database integration</p></div>
+          <div class="cap-item"><span>02</span><p>Intelligent, context-aware website concierges</p></div>
+          <div class="cap-item"><span>03</span><p>Custom MCP servers for internal APIs, databases, and file systems</p></div>
+          <div class="cap-item"><span>04</span><p>AI-native architecture for reasoning engines and large context windows</p></div>
+          <div class="cap-item"><span>05</span><p>Autonomous lead-generation and personalized customer journey mapping</p></div>
+          <div class="cap-item"><span>06</span><p>AI-driven landing-page generation tied to your SEO strategy</p></div>
+          <div class="cap-item"><span>07</span><p>Agents that monitor security advisories, payroll, and project timelines</p></div>
+          <div class="cap-item"><span>08</span><p>Internal AI tools wired into Slack, GitHub, CRMs, and project boards</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div class="container about-grid">
+        <div class="about-copy">
+          <div class="eyebrow">About Custom Skills LLC</div>
+          <h2>A focused AI engineering studio.</h2>
+          <p>
+            Custom Skills LLC is an AI strategy and implementation studio.
+            We work with operators, founders, and enterprise teams who need
+            real systems — not pilots that die in the demo. Our engagements
+            are small, senior, and outcome-driven.
+          </p>
+          <p>
+            We don't sell off-the-shelf software. We build custom, deeply
+            integrated AI solutions that act as an operating system for your
+            business operations — and we measure success by hours returned to
+            your team and revenue moved into the pipeline.
+          </p>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Custom-engineered solutions</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">24/7</div>
+            <div class="stat-label">Autonomous workflow uptime</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">0</div>
+            <div class="stat-label">Hallucinations on grounded data</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">∞</div>
+            <div class="stat-label">Tools your agent can reach</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="container contact-grid">
+        <div class="contact-copy">
+          <div class="eyebrow">Let's Build</div>
+          <h2>Tell us about the workflow you'd hand off to a tireless digital teammate.</h2>
+          <p>
+            Whether you're starting from a single use case or replatforming
+            an entire operations stack, we'll scope a path forward in one
+            conversation.
+          </p>
+          <ul class="contact-meta">
+            <li><span>Discovery calls</span> 30 minutes, no obligation</li>
+            <li><span>Engagement model</span> Project, retainer, or fractional</li>
+            <li><span>Response time</span> Within one business day</li>
+          </ul>
+        </div>
+        <form class="contact-form" onsubmit="return handleContactSubmit(event)">
+          <label>
+            <span>Name</span>
+            <input type="text" name="name" required autocomplete="name" />
+          </label>
+          <label>
+            <span>Work email</span>
+            <input type="email" name="email" required autocomplete="email" />
+          </label>
+          <label>
+            <span>Company</span>
+            <input type="text" name="company" autocomplete="organization" />
+          </label>
+          <label>
+            <span>What are you looking to build?</span>
+            <textarea name="message" rows="5" required placeholder="A grounded internal chatbot, an MCP connector for our CRM, an agentic marketing workflow…"></textarea>
+          </label>
+          <button type="submit" class="btn btn-primary btn-block">Send message</button>
+          <p class="form-note">We'll reply from <a href="mailto:hello@customskills.ai">hello@customskills.ai</a></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="#top" class="logo logo-footer">
+          <span class="logo-mark">CS</span>
+          <span class="logo-text">Custom Skills <span class="logo-llc">LLC</span></span>
+        </a>
+        <p class="footer-tag">AI strategy & implementation for businesses that need reasoning engines, not chatbots.</p>
+      </div>
+      <div class="footer-cols">
+        <div>
+          <h5>Services</h5>
+          <a href="#services">Knowledge & RAG</a>
+          <a href="#services">MCP Infrastructure</a>
+          <a href="#services">Agentic Operations</a>
+          <a href="#services">Internal Solutions</a>
+        </div>
+        <div>
+          <h5>Company</h5>
+          <a href="#about">About</a>
+          <a href="#approach">Approach</a>
+          <a href="#capabilities">Capabilities</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© <span id="year"></span> Custom Skills LLC. All rights reserved.</span>
+      <span>Built for businesses that ship.</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

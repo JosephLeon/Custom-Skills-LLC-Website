@@ -339,7 +339,11 @@
             <li><span>Response time</span> Within one business day</li>
           </ul>
         </div>
-        <form class="contact-form" onsubmit="return handleContactSubmit(event)">
+        <form
+          class="contact-form"
+          action="https://formspree.io/f/xjgzgazb"
+          method="POST"
+        >
           <label>
             <span>Name</span>
             <input type="text" name="name" required autocomplete="name" />
@@ -356,7 +360,9 @@
             <span>What are you looking to build?</span>
             <textarea name="message" rows="5" required placeholder="A grounded internal chatbot, an MCP connector for our CRM, an agentic marketing workflow…"></textarea>
           </label>
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hp-field" aria-hidden="true" />
           <button type="submit" class="btn btn-primary btn-block">Send message</button>
+          <div class="form-status" role="status" aria-live="polite"></div>
         </form>
       </div>
     </section>

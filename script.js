@@ -47,16 +47,49 @@ document
     observer.observe(el);
   });
 
-// Contact form (frontend-only stub; wire to a real endpoint later)
-function handleContactSubmit(e) {
-  e.preventDefault();
-  const form = e.target;
-  const data = Object.fromEntries(new FormData(form).entries());
-  const subject = encodeURIComponent(`New inquiry from ${data.name || 'website'}`);
-  const body = encodeURIComponent(
-    `Name: ${data.name}\nEmail: ${data.email}\nCompany: ${data.company || '-'}\n\n${data.message}`
-  );
-  window.location.href = `mailto:joseph@customskillsllc.com?subject=${subject}&body=${body}`;
-  return false;
+// Contact form — submits to Formspree via AJAX, shows inline status
+const contactForm = document.querySelector('.contact-form');
+if (contactForm) {
+  const status = contactForm.querySelector('.form-status');
+  const submitBtn = contactForm.querySelector('button[type="submit"]');
+  const originalBtnText = submitBtn ? submitBtn.textContent : '';
+
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!status || !submitBtn) return;
+
+    status.className = 'form-status';
+    status.textContent = '';
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+
+    try {
+      const res = await fetch(contactForm.action, {
+        method: 'POST',
+        body: new FormData(contactForm),
+        headers: { Accept: 'application/json' },
+      });
+      if (res.ok) {
+        contactForm.reset();
+        status.className = 'form-status form-status-success';
+        status.textContent = "Thanks — we'll be in touch within one business day.";
+        submitBtn.textContent = 'Sent';
+      } else {
+        const data = await res.json().catch(() => ({}));
+        const msg =
+          (data.errors && data.errors.map((x) => x.message).join(', ')) ||
+          'Something went wrong. Please email joseph@customskillsllc.com directly.';
+        status.className = 'form-status form-status-error';
+        status.textContent = msg;
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+      }
+    } catch (err) {
+      status.className = 'form-status form-status-error';
+      status.textContent =
+        'Network error. Please email joseph@customskillsllc.com directly.';
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalBtnText;
+    }
+  });
 }
-window.handleContactSubmit = handleContactSubmit;

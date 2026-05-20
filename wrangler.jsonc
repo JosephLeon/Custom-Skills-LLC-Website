@@ -1,14 +1,14 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "customskillsllc",
+  "main": "src/index.js",
   "compatibility_date": "2026-05-20",
+  "compatibility_flags": ["nodejs_compat"],
   "observability": {
     "enabled": true
   },
   "assets": {
-    "directory": "."
-  },
-  "compatibility_flags": [
-    "nodejs_compat"
-  ]
+    "directory": "./public",
+    "binding": "ASSETS"
+  }
 }

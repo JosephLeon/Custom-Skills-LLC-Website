@@ -1,0 +1,7 @@
+# Copy this file to `.dev.vars` and fill in your secrets for local development.
+# `.dev.vars` is gitignored. Do NOT commit a file with real secrets.
+#
+#   cp .dev.vars.example .dev.vars
+#   # then edit .dev.vars and paste your key
+
+ANTHROPIC_API_KEY=sk-ant-...

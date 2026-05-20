@@ -22,7 +22,7 @@
   <meta property="og:title" content="Custom Skills LLC | AI Consulting, RAG & MCP Implementation" />
   <meta property="og:description" content="We build reasoning engines that run your business. RAG knowledge bases, MCP integrations, agentic workflows, and the web apps that ship around them." />
   <meta property="og:url" content="https://customskillsllc.com/" />
-  <meta property="og:image" content="https://customskillsllc.com/og-image.png" />
+  <meta property="og:image" content="https://customskillsllc.com/og-image.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Custom Skills LLC | AI Strategy &amp; Implementation" />
@@ -32,7 +32,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Custom Skills LLC | AI Consulting, RAG & MCP Implementation" />
   <meta name="twitter:description" content="We build reasoning engines that run your business. RAG knowledge bases, MCP integrations, agentic workflows, and the web apps that ship around them." />
-  <meta name="twitter:image" content="https://customskillsllc.com/og-image.png" />
+  <meta name="twitter:image" content="https://customskillsllc.com/og-image.jpg" />
   <meta name="twitter:image:alt" content="Custom Skills LLC | AI Strategy &amp; Implementation" />
 
   <!-- Performance hints -->
@@ -57,7 +57,7 @@
         "name": "Custom Skills LLC",
         "url": "https://customskillsllc.com/",
         "logo": "https://customskillsllc.com/favicon.svg",
-        "image": "https://customskillsllc.com/og-image.png",
+        "image": "https://customskillsllc.com/og-image.jpg",
         "description": "AI strategy and implementation studio building reasoning engines, RAG systems, MCP infrastructure, and autonomous agents for businesses.",
         "email": "contact@customskillsllc.com",
         "founder": {
@@ -73,7 +73,7 @@
         "@id": "https://customskillsllc.com/#service",
         "name": "Custom Skills LLC",
         "url": "https://customskillsllc.com/",
-        "image": "https://customskillsllc.com/og-image.png",
+        "image": "https://customskillsllc.com/og-image.jpg",
         "description": "End-to-end AI engineering and strategic integration. Knowledge orchestration, MCP infrastructure, agentic operations, internal business solutions, and application & web development.",
         "areaServed": "Worldwide",
         "priceRange": "$$$",
@@ -241,25 +241,47 @@
             <li><strong>Agentic</strong> Autonomous execution</li>
           </ul>
         </div>
-        <div class="hero-visual" aria-hidden="true">
-          <div class="orb"></div>
-          <div class="grid-overlay"></div>
-          <div class="code-card">
-            <div class="code-card-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-              <span class="code-title">reasoning-engine.ts</span>
+        <div class="hero-visual">
+          <div class="orb" aria-hidden="true"></div>
+          <div class="grid-overlay" aria-hidden="true"></div>
+          <button
+            type="button"
+            class="hero-chat"
+            data-open-concierge
+            aria-label="Try the live Custom Skills concierge"
+          >
+            <div class="hero-chat-header">
+              <span class="hero-chat-mark" aria-hidden="true">CS</span>
+              <div class="hero-chat-title">
+                <strong>Custom Skills concierge</strong>
+                <span class="hero-chat-sub">
+                  <span class="hero-chat-dot" aria-hidden="true"></span>
+                  Live demo, click to try
+                </span>
+              </div>
             </div>
-            <pre><code><span class="c-key">const</span> <span class="c-var">agent</span> = <span class="c-fn">createReasoner</span>({
-  <span class="c-prop">knowledge</span>: <span class="c-str">"vector://company.kb"</span>,
-  <span class="c-prop">tools</span>: [<span class="c-str">"crm"</span>, <span class="c-str">"jira"</span>, <span class="c-str">"slack"</span>],
-  <span class="c-prop">guardrails</span>: <span class="c-str">"human-in-loop"</span>,
-});
-
-<span class="c-comment">// Autonomous, grounded, auditable.</span>
-<span class="c-key">await</span> agent.<span class="c-fn">execute</span>(objective);</code></pre>
-          </div>
+            <div class="hero-chat-messages">
+              <div class="hero-chat-msg hero-chat-msg-user">
+                How is RAG different from a custom GPT?
+              </div>
+              <div class="hero-chat-msg hero-chat-msg-assistant">
+                <p>
+                  Custom GPTs still guess and have data limits. RAG doesn't.
+                  It searches your private files in real time and answers
+                  using only the exact text it just retrieved.
+                </p>
+                <span class="hero-chat-cite">↗ Knowledge Orchestration &amp; RAG</span>
+              </div>
+            </div>
+            <div class="hero-chat-input">
+              <span class="hero-chat-placeholder">Ask about RAG, MCP, agents…</span>
+              <span class="hero-chat-send" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12l14-7-5 14-3-6z"/>
+                </svg>
+              </span>
+            </div>
+          </button>
         </div>
       </div>
     </section>
@@ -310,7 +332,7 @@
               <li>Website-specific concierges & expert bots</li>
               <li>Source-linked citations for 100% verifiability</li>
             </ul>
-            <a href="#contact" class="service-link">Discuss a RAG build →</a>
+            <button type="button" class="service-link" data-open-concierge data-prefill="Tell me more about your Knowledge Orchestration and RAG work.">Discuss a RAG build →</button>
           </article>
 
           <article class="service-card" id="service-mcp">
@@ -333,7 +355,7 @@
               <li>AI-native architecture for high-token workflows</li>
               <li>Private: your data never leaves your walls</li>
             </ul>
-            <a href="#contact" class="service-link">Design an integration →</a>
+            <button type="button" class="service-link" data-open-concierge data-prefill="How would an MCP integration work for our internal systems?">Design an integration →</button>
           </article>
 
           <article class="service-card" id="service-agentic">
@@ -354,7 +376,7 @@
               <li>Lead qualification & nurture pipelines</li>
               <li>Human-in-the-loop approval guardrails</li>
             </ul>
-            <a href="#contact" class="service-link">Launch an agent →</a>
+            <button type="button" class="service-link" data-open-concierge data-prefill="What does an agentic operations engagement look like?">Launch an agent →</button>
           </article>
 
           <article class="service-card" id="service-internal">
@@ -375,7 +397,7 @@
               <li>Continuous compliance & security monitoring</li>
               <li>Autonomous project tracking & anomaly flagging</li>
             </ul>
-            <a href="#contact" class="service-link">Map your workflow →</a>
+            <button type="button" class="service-link" data-open-concierge data-prefill="How do you automate internal business workflows?">Map your workflow →</button>
           </article>
 
           <article class="service-card service-card-wide" id="service-app-web">
@@ -400,7 +422,7 @@
                 <li>Marketing sites, landing pages, and SEO-tuned funnels</li>
                 <li>Internal dashboards, admin tooling, and client portals</li>
               </ul>
-              <a href="#contact" class="service-link">Scope a build →</a>
+              <button type="button" class="service-link" data-open-concierge data-prefill="Can you build a custom application around an AI backend for us?">Scope a build →</button>
             </div>
           </article>
         </div>
@@ -430,21 +452,21 @@
           <li>
             <span class="step-num">01</span>
             <div>
-              <h4>Discovery & Architecture</h4>
+              <h3>Discovery & Architecture</h3>
               <p>We map your data silos, internal tools, and the workflows that bleed the most hours. The output is a concrete system design.</p>
             </div>
           </li>
           <li>
             <span class="step-num">02</span>
             <div>
-              <h4>Build & Ground</h4>
+              <h3>Build & Ground</h3>
               <p>We engineer the retrieval layer, MCP connectors, and reasoning agents, all grounded in your data with verifiable source citations.</p>
             </div>
           </li>
           <li>
             <span class="step-num">03</span>
             <div>
-              <h4>Deploy & Operate</h4>
+              <h3>Deploy & Operate</h3>
               <p>We integrate inside your existing stack with human-in-the-loop controls, observability, and continuous evaluation.</p>
             </div>
           </li>
@@ -663,7 +685,7 @@
       </div>
       <div class="footer-cols">
         <div>
-          <h5>Services</h5>
+          <h3>Services</h3>
           <a href="#services">Knowledge & RAG</a>
           <a href="#services">MCP Infrastructure</a>
           <a href="#services">Agentic Operations</a>
@@ -671,7 +693,7 @@
           <a href="#services">App & Web Development</a>
         </div>
         <div>
-          <h5>Company</h5>
+          <h3>Company</h3>
           <a href="#about">About</a>
           <a href="#approach">Approach</a>
           <a href="#capabilities">Capabilities</a>
@@ -712,7 +734,8 @@
       class="concierge-panel"
       role="dialog"
       aria-labelledby="concierge-title"
-      aria-hidden="true"
+      aria-modal="true"
+      inert
     >
       <header class="concierge-header">
         <div class="concierge-brand">

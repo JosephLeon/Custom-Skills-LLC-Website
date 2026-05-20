@@ -124,6 +124,62 @@ if (contactForm) {
     engagement: { title: 'Engagement Model', anchor: 'contact' },
   };
 
+  // Follow-up questions to suggest after a response, keyed by the
+  // sections the bot just cited. The first matching section wins.
+  // Each list has 3 questions; we pick a deterministic rotating subset
+  // so repeated topics surface variety.
+  const FOLLOW_UPS = {
+    'knowledge-rag': [
+      'Can it handle thousands of messy PDFs?',
+      'How does the citation feature work?',
+      'What does setup actually look like?',
+    ],
+    mcp: [
+      'What systems can you connect to?',
+      'Is our data safe during all this?',
+      'How long does an MCP integration take?',
+    ],
+    agentic: [
+      "What's an example of an agentic workflow?",
+      'Does the agent run with no human oversight?',
+      'Can it integrate with our CRM and Slack?',
+    ],
+    internal: [
+      'Do we have to replace our existing software?',
+      'Can this handle compliance reporting?',
+      'How do you handle sensitive internal data?',
+    ],
+    'app-web-development': [
+      'What stacks do you work in?',
+      'Do you do mobile apps too?',
+      'Can you build the UI around a RAG backend?',
+    ],
+    engagement: [
+      'What does a typical engagement look like?',
+      'Do you offer retainer or fractional work?',
+      'How quickly can we start?',
+    ],
+    'services-summary': [
+      'How is RAG different from a custom GPT?',
+      'What does an MCP integration involve?',
+      'What does an engagement look like?',
+    ],
+    overview: [
+      'What kind of clients do you work with?',
+      'How is RAG different from a custom GPT?',
+      'What does an engagement look like?',
+    ],
+  };
+
+  const GENERIC_FOLLOW_UPS = [
+    'What does an engagement look like?',
+    'Is our data safe with you?',
+    'How is this priced?',
+  ];
+
+  // Track which follow-ups have already been shown to avoid repetition
+  const usedFollowUps = new Set();
+
   // ---------- Persistence ----------
   const STORAGE_KEY = 'cs-concierge-v1';
   const STORAGE_TTL_MS = 24 * 60 * 60 * 1000; // 24h
@@ -177,6 +233,8 @@ if (contactForm) {
   if (history.length > 0) {
     // Remove the initial greeting + suggestion chips
     messagesEl.innerHTML = '';
+    let lastAssistantEl = null;
+    let lastAssistantRaw = '';
     for (const m of history) {
       if (m.role === 'user') {
         appendUserMessage(m.content);
@@ -186,8 +244,12 @@ if (contactForm) {
         const bubble = el.querySelector('.concierge-bubble');
         bubble.innerHTML = renderMarkdown(stripCitations(m.content));
         renderCitations(el, m.content);
+        lastAssistantEl = el;
+        lastAssistantRaw = m.content;
       }
     }
+    // Show follow-ups only on the most recent assistant turn
+    if (lastAssistantEl) renderFollowUps(lastAssistantEl, lastAssistantRaw);
     addNewConversationButton();
   }
 
@@ -195,7 +257,14 @@ if (contactForm) {
   function setOpen(open) {
     root.dataset.state = open ? 'open' : 'closed';
     launcher.setAttribute('aria-expanded', String(open));
-    panel.setAttribute('aria-hidden', String(!open));
+    // Use `inert` so the panel's focusable children are properly excluded
+    // from the tab order and AT when closed. Removing inert makes them
+    // available again.
+    if (open) {
+      panel.removeAttribute('inert');
+    } else {
+      panel.setAttribute('inert', '');
+    }
     if (open) setTimeout(() => textarea.focus(), 150);
     if (!open) logConversation();
   }
@@ -203,11 +272,21 @@ if (contactForm) {
   launcher.addEventListener('click', () => setOpen(true));
   closeBtn.addEventListener('click', () => setOpen(false));
 
-  // Any element with [data-open-concierge] opens the widget on click
+  // Any element with [data-open-concierge] opens the widget on click.
+  // If it also has [data-prefill], the textarea is populated and submitted.
   document.querySelectorAll('[data-open-concierge]').forEach((el) => {
     el.addEventListener('click', (e) => {
       e.preventDefault();
       setOpen(true);
+      const prefill = el.getAttribute('data-prefill');
+      if (prefill) {
+        // Defer so the panel can open and focus before we submit
+        setTimeout(() => {
+          textarea.value = prefill;
+          textarea.dispatchEvent(new Event('input'));
+          form.requestSubmit();
+        }, 220);
+      }
     });
   });
 
@@ -340,6 +419,7 @@ if (contactForm) {
 
       bubble.innerHTML = renderMarkdown(stripCitations(raw));
       renderCitations(assistantEl, raw);
+      renderFollowUps(assistantEl, raw);
       history.push({ role: 'assistant', content: raw });
       saveState();
     } catch (err) {
@@ -430,6 +510,54 @@ if (contactForm) {
       chip.dataset.anchor = section.anchor;
       chip.addEventListener('click', () => jumpToSection(section.anchor));
       wrap.appendChild(chip);
+    }
+    assistantEl.appendChild(wrap);
+  }
+
+  // ---------- Suggested follow-ups ----------
+  function renderFollowUps(assistantEl, raw) {
+    // Find which sections the bot cited so we can pick relevant follow-ups
+    const cited = [];
+    for (const m of raw.matchAll(/\[cite:([a-z0-9-]+)\]/gi)) {
+      const id = m[1].toLowerCase();
+      if (FOLLOW_UPS[id] && !cited.includes(id)) cited.push(id);
+    }
+
+    // Pull 2 unique follow-ups from the first cited section, plus one
+    // generic to keep variety
+    const pool = [];
+    for (const id of cited) {
+      for (const q of FOLLOW_UPS[id]) {
+        if (!usedFollowUps.has(q)) pool.push(q);
+      }
+      if (pool.length >= 2) break;
+    }
+    for (const q of GENERIC_FOLLOW_UPS) {
+      if (!usedFollowUps.has(q) && !pool.includes(q)) pool.push(q);
+      if (pool.length >= 3) break;
+    }
+
+    const picks = pool.slice(0, 3);
+    if (picks.length === 0) return;
+    picks.forEach((q) => usedFollowUps.add(q));
+
+    const wrap = document.createElement('div');
+    wrap.className = 'concierge-followups';
+    const label = document.createElement('span');
+    label.className = 'concierge-followups-label';
+    label.textContent = 'You might also ask:';
+    wrap.appendChild(label);
+    for (const q of picks) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'concierge-followup';
+      btn.textContent = q;
+      btn.addEventListener('click', () => {
+        textarea.value = q;
+        textarea.dispatchEvent(new Event('input'));
+        form.requestSubmit();
+      });
+      wrap.appendChild(btn);
     }
     assistantEl.appendChild(wrap);
   }

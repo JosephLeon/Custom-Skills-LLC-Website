@@ -93,3 +93,225 @@ if (contactForm) {
     }
   });
 }
+
+// =============================================================
+// Concierge chat widget
+// =============================================================
+(() => {
+  const root = document.getElementById('concierge');
+  if (!root) return;
+
+  const launcher = root.querySelector('.concierge-launcher');
+  const closeBtn = root.querySelector('.concierge-close');
+  const panel = root.querySelector('.concierge-panel');
+  const form = root.querySelector('#concierge-form');
+  const textarea = root.querySelector('#concierge-textarea');
+  const sendBtn = root.querySelector('.concierge-send');
+  const messagesEl = root.querySelector('#concierge-messages');
+  const suggestionsEl = root.querySelector('.concierge-suggestions');
+
+  const SECTION_TITLES = {
+    overview: 'Overview',
+    'services-summary': 'Services Summary',
+    'knowledge-rag': 'Knowledge Orchestration & RAG',
+    mcp: 'Connectivity & Infrastructure (MCP)',
+    agentic: 'Agentic Operations & Marketing',
+    internal: 'Internal Business Solutions',
+    'app-web-development': 'Application & Web Development',
+    engagement: 'Engagement Model',
+  };
+
+  // Conversation history sent to the API. We do NOT include the greeting.
+  const history = [];
+
+  function setOpen(open) {
+    root.dataset.state = open ? 'open' : 'closed';
+    launcher.setAttribute('aria-expanded', String(open));
+    panel.setAttribute('aria-hidden', String(!open));
+    if (open) setTimeout(() => textarea.focus(), 150);
+  }
+
+  launcher.addEventListener('click', () => setOpen(true));
+  closeBtn.addEventListener('click', () => setOpen(false));
+
+  // Esc closes the panel
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && root.dataset.state === 'open') setOpen(false);
+  });
+
+  // Auto-resize textarea
+  textarea.addEventListener('input', () => {
+    textarea.style.height = 'auto';
+    textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+  });
+
+  // Enter sends, Shift+Enter newlines
+  textarea.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      form.requestSubmit();
+    }
+  });
+
+  // Suggested prompts
+  if (suggestionsEl) {
+    suggestionsEl.addEventListener('click', (e) => {
+      const btn = e.target.closest('.concierge-suggestion');
+      if (!btn) return;
+      textarea.value = btn.textContent.trim();
+      textarea.dispatchEvent(new Event('input'));
+      form.requestSubmit();
+    });
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const text = textarea.value.trim();
+    if (!text || sendBtn.disabled) return;
+
+    // Hide suggestions after first user turn
+    if (suggestionsEl && suggestionsEl.parentNode) {
+      suggestionsEl.remove();
+    }
+
+    appendUserMessage(text);
+    textarea.value = '';
+    textarea.style.height = 'auto';
+    sendBtn.disabled = true;
+
+    history.push({ role: 'user', content: text });
+
+    const assistantEl = appendAssistantPlaceholder();
+    const bubble = assistantEl.querySelector('.concierge-bubble');
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history }),
+      });
+
+      if (!res.ok || !res.body) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || `Request failed (${res.status})`);
+      }
+
+      // Stream tokens
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      let raw = '';
+
+      removeTypingIndicator(assistantEl);
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+
+        const lines = buffer.split('\n\n');
+        buffer = lines.pop() || '';
+
+        for (const line of lines) {
+          if (!line.startsWith('data:')) continue;
+          const data = line.slice(5).trim();
+          if (!data) continue;
+          try {
+            const parsed = JSON.parse(data);
+            if (parsed.delta) {
+              raw += parsed.delta;
+              bubble.textContent = stripCitations(raw);
+              scrollToBottom();
+            } else if (parsed.error) {
+              throw new Error(parsed.error);
+            }
+          } catch (parseErr) {
+            // ignore non-JSON lines
+          }
+        }
+      }
+
+      // Final render: strip citation markers from bubble, render chips below
+      bubble.textContent = stripCitations(raw);
+      renderCitations(assistantEl, raw);
+      history.push({ role: 'assistant', content: raw });
+    } catch (err) {
+      bubble.remove();
+      const indicator = assistantEl.querySelector('.concierge-typing');
+      if (indicator) indicator.remove();
+      const errBox = document.createElement('div');
+      errBox.className = 'concierge-error';
+      errBox.textContent =
+        (err && err.message) ||
+        "Couldn't reach the concierge. Try again, or use the contact form below.";
+      assistantEl.appendChild(errBox);
+    } finally {
+      sendBtn.disabled = false;
+      textarea.focus();
+      scrollToBottom();
+    }
+  });
+
+  function appendUserMessage(text) {
+    const wrap = document.createElement('div');
+    wrap.className = 'concierge-msg concierge-msg-user';
+    const bubble = document.createElement('div');
+    bubble.className = 'concierge-bubble';
+    bubble.textContent = text;
+    wrap.appendChild(bubble);
+    messagesEl.appendChild(wrap);
+    scrollToBottom();
+  }
+
+  function appendAssistantPlaceholder() {
+    const wrap = document.createElement('div');
+    wrap.className = 'concierge-msg concierge-msg-assistant';
+    const bubble = document.createElement('div');
+    bubble.className = 'concierge-bubble';
+    const typing = document.createElement('div');
+    typing.className = 'concierge-typing';
+    typing.innerHTML = '<span></span><span></span><span></span>';
+    bubble.appendChild(typing);
+    wrap.appendChild(bubble);
+    messagesEl.appendChild(wrap);
+    scrollToBottom();
+    return wrap;
+  }
+
+  function removeTypingIndicator(assistantEl) {
+    const t = assistantEl.querySelector('.concierge-typing');
+    if (t) t.remove();
+  }
+
+  function stripCitations(text) {
+    return text.replace(/\s*\[cite:[a-z0-9-]+\]/gi, '').trim();
+  }
+
+  function renderCitations(assistantEl, raw) {
+    const matches = [...raw.matchAll(/\[cite:([a-z0-9-]+)\]/gi)];
+    if (matches.length === 0) return;
+    const seen = new Set();
+    const ids = [];
+    for (const m of matches) {
+      const id = m[1].toLowerCase();
+      if (!seen.has(id) && SECTION_TITLES[id]) {
+        seen.add(id);
+        ids.push(id);
+      }
+    }
+    if (ids.length === 0) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'concierge-citations';
+    for (const id of ids) {
+      const chip = document.createElement('span');
+      chip.className = 'concierge-cite';
+      chip.textContent = SECTION_TITLES[id];
+      wrap.appendChild(chip);
+    }
+    assistantEl.appendChild(wrap);
+  }
+
+  function scrollToBottom() {
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+})();

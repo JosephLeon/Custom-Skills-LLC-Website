@@ -941,12 +941,106 @@ p { margin: 0 0 1em; color: var(--text-muted); }
 .concierge-cite {
   display: inline-flex;
   align-items: center;
+  font-family: inherit;
   font-size: 0.72rem;
   color: var(--accent);
   background: rgba(110, 168, 255, 0.08);
   border: 1px solid rgba(110, 168, 255, 0.22);
-  padding: 3px 9px;
+  padding: 3px 10px;
   border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+.concierge-cite:hover {
+  background: rgba(110, 168, 255, 0.18);
+  color: #fff;
+  border-color: rgba(110, 168, 255, 0.55);
+  transform: translateY(-1px);
+}
+.concierge-cite::before {
+  content: '↗';
+  margin-right: 5px;
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+/* "New conversation" button in the header */
+.concierge-reset {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: 6px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.concierge-reset:hover { color: #fff; border-color: var(--border-strong); }
+.concierge-reset svg { width: 15px; height: 15px; }
+
+/* Markdown rendering inside chat bubbles */
+.concierge-msg-assistant .concierge-bubble p {
+  margin: 0 0 8px;
+  color: var(--text);
+}
+.concierge-msg-assistant .concierge-bubble p:last-child { margin-bottom: 0; }
+.concierge-msg-assistant .concierge-bubble ul,
+.concierge-msg-assistant .concierge-bubble ol {
+  margin: 4px 0 8px;
+  padding-left: 22px;
+}
+.concierge-msg-assistant .concierge-bubble li { margin-bottom: 3px; }
+.concierge-msg-assistant .concierge-bubble strong { color: #fff; font-weight: 600; }
+.concierge-msg-assistant .concierge-bubble em { font-style: italic; }
+.concierge-msg-assistant .concierge-bubble a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.concierge-msg-assistant .concierge-bubble a:hover { color: #fff; }
+.md-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border);
+  padding: 1px 6px;
+  border-radius: 5px;
+  color: #c4b5fd;
+}
+.md-pre {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 8px 0;
+  overflow-x: auto;
+}
+.md-pre code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: #d6dcec;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+/* Brief highlight when a citation chip jumps to a section */
+@keyframes csFlash {
+  0% { box-shadow: 0 0 0 0 rgba(110, 168, 255, 0); }
+  20% { box-shadow: 0 0 0 4px rgba(110, 168, 255, 0.45); }
+  100% { box-shadow: 0 0 0 0 rgba(110, 168, 255, 0); }
+}
+.cs-flash {
+  animation: csFlash 1.6s ease-out;
+  border-radius: var(--radius-lg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs-flash { animation: none; }
 }
 
 /* Typing indicator */

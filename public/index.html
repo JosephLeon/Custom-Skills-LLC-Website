@@ -22,18 +22,18 @@
   <meta property="og:title" content="Custom Skills LLC | AI Consulting, RAG & MCP Implementation" />
   <meta property="og:description" content="We build reasoning engines that run your business. RAG knowledge bases, MCP integrations, agentic workflows, and the web apps that ship around them." />
   <meta property="og:url" content="https://customskillsllc.com/" />
-  <meta property="og:image" content="https://customskillsllc.com/og-image.svg" />
+  <meta property="og:image" content="https://customskillsllc.com/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Custom Skills LLC — AI Strategy & Implementation" />
+  <meta property="og:image:alt" content="Custom Skills LLC | AI Strategy &amp; Implementation" />
   <meta property="og:locale" content="en_US" />
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Custom Skills LLC | AI Consulting, RAG & MCP Implementation" />
   <meta name="twitter:description" content="We build reasoning engines that run your business. RAG knowledge bases, MCP integrations, agentic workflows, and the web apps that ship around them." />
-  <meta name="twitter:image" content="https://customskillsllc.com/og-image.svg" />
-  <meta name="twitter:image:alt" content="Custom Skills LLC — AI Strategy & Implementation" />
+  <meta name="twitter:image" content="https://customskillsllc.com/og-image.png" />
+  <meta name="twitter:image:alt" content="Custom Skills LLC | AI Strategy &amp; Implementation" />
 
   <!-- Performance hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -61,7 +61,7 @@
         "name": "Custom Skills LLC",
         "url": "https://customskillsllc.com/",
         "logo": "https://customskillsllc.com/favicon.svg",
-        "image": "https://customskillsllc.com/og-image.svg",
+        "image": "https://customskillsllc.com/og-image.png",
         "description": "AI strategy and implementation studio building reasoning engines, RAG systems, MCP infrastructure, and autonomous agents for businesses.",
         "email": "contact@customskillsllc.com",
         "founder": {
@@ -77,7 +77,7 @@
         "@id": "https://customskillsllc.com/#service",
         "name": "Custom Skills LLC",
         "url": "https://customskillsllc.com/",
-        "image": "https://customskillsllc.com/og-image.svg",
+        "image": "https://customskillsllc.com/og-image.png",
         "description": "End-to-end AI engineering and strategic integration. Knowledge orchestration, MCP infrastructure, agentic operations, internal business solutions, and application & web development.",
         "areaServed": "Worldwide",
         "priceRange": "$$$",
@@ -136,12 +136,67 @@
         "name": "Custom Skills LLC",
         "publisher": { "@id": "https://customskillsllc.com/#organization" },
         "inLanguage": "en-US"
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://customskillsllc.com/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How is this different from a custom GPT?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Custom GPTs still guess and have strict data limits. RAG doesn't guess. It acts like a search engine for your private files, reads the exact text in real time, and summarizes it perfectly. When your data changes, the AI knows instantly, no retraining required."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is our data safe with you?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. We don't use your data to train public AI models. We build a secure, private bridge so the AI can look at your data inside your own walls, answer the question, and leave. Your data stays entirely yours."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can it handle messy PDFs or unstructured data?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Our system ingests unstructured text, breaks it down, and indexes it so the AI can navigate thousands of pages of messy documentation in milliseconds."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do we have to replace our existing software?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Not at all. We don't ask you to learn a new platform. We build the AI to live inside the tools your team already uses every day, making your existing stack significantly smarter."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What systems can you connect AI to?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Standard cloud databases, custom internal APIs, older local file systems. We build the custom MCP connectors to bridge them all together."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does the agent run with no human oversight?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Only as much as you want it to. We build these systems with human-in-the-loop guardrails. The agent can do the heavy lifting and then pause for a manager's approval before anything goes live, or operate fully autonomously once you've earned confidence."
+            }
+          }
+        ]
       }
     ]
   }
   </script>
 </head>
 <body>
+  <a href="#main" class="skip-link">Skip to content</a>
   <header class="site-header" id="top">
     <div class="container nav-container">
       <a href="#top" class="logo">
@@ -151,7 +206,7 @@
       <nav class="primary-nav" aria-label="Primary">
         <a href="#services">Services</a>
         <a href="#approach">Approach</a>
-        <a href="#capabilities">Capabilities</a>
+        <a href="#faq">FAQ</a>
         <a href="#about">About</a>
         <a href="#contact" class="nav-cta">Contact</a>
       </nav>
@@ -161,22 +216,29 @@
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-content">
           <div class="eyebrow">AI Strategy & Implementation</div>
           <h1>We build <span class="gradient-text">reasoning engines</span> that run your business.</h1>
           <p class="lede">
-            End-to-end AI engineering and strategic integration. We transform raw data
-            into autonomous business assets. We build systems that don't just
-            process text, but execute complex workflows, manage internal
-            knowledge, and engage customers with expert-level precision.
+            End-to-end AI engineering and strategic integration. We turn raw
+            data into systems that don't just process text, but execute
+            complex workflows, manage internal knowledge, and engage
+            customers with expert-level precision.
           </p>
           <div class="hero-actions">
             <a href="#contact" class="btn btn-primary">Book a discovery call</a>
             <a href="#services" class="btn btn-ghost">Explore services →</a>
           </div>
+          <p class="hero-concierge-cta">
+            Or
+            <button type="button" class="link-cta" data-open-concierge>
+              talk to the concierge we built on our own capabilities
+            </button>.
+            It's the same RAG product we ship to clients, running on this page.
+          </p>
           <ul class="hero-trust">
             <li><strong>RAG</strong> Grounded retrieval</li>
             <li><strong>MCP</strong> Secure connectivity</li>
@@ -308,9 +370,9 @@
             </div>
             <h3>Internal Business Solutions</h3>
             <p>
-              An invisible, hyper-efficient Chief of Staff for your operations.
-              We automate compliance audits, project timelines, and
-              cross-department coordination, all inside the tools you already use.
+              A quiet Chief of Staff for your operations. We automate
+              compliance audits, project timelines, and cross-department
+              coordination, all inside the tools your team already uses.
             </p>
             <ul class="service-list">
               <li>Slack, GitHub, Jira, ClickUp, CRM integrations</li>
@@ -360,8 +422,8 @@
             your guardrails.
           </p>
           <p>
-            We've built our practice around a simple conviction: AI delivers
-            real ROI when it can <strong>retrieve grounded facts</strong>,
+            AI returns real ROI only when it can
+            <strong>retrieve grounded facts</strong>,
             <strong>act on connected systems</strong>, and
             <strong>operate within trusted guardrails</strong>. Every
             engagement is engineered against those three pillars.
@@ -412,6 +474,83 @@
       </div>
     </section>
 
+    <section id="faq" class="faq">
+      <div class="container">
+        <header class="section-header">
+          <div class="eyebrow">Common Questions</div>
+          <h2>The answers prospects ask for first.</h2>
+          <p class="section-sub">
+            Drawn straight from the conversations we have most often.
+            For anything not here, ask the concierge bottom-right or
+            <a href="#contact">send us a message</a>.
+          </p>
+        </header>
+
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>How is this different from a custom GPT?</summary>
+            <div class="faq-body">
+              Custom GPTs still guess and have strict data limits. RAG
+              doesn't guess. It acts like a search engine for your
+              private files, reads the exact text in real time, and
+              summarizes it perfectly. When your data changes, the AI
+              knows instantly, no retraining required.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Is our data safe with you?</summary>
+            <div class="faq-body">
+              Yes. We don't use your data to train public AI models. We
+              build a secure, private bridge so the AI can look at your
+              data inside your own walls, answer the question, and
+              leave. Your data stays entirely yours.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Can it handle messy PDFs or unstructured data?</summary>
+            <div class="faq-body">
+              Yes. That's exactly what it excels at. Our system ingests
+              unstructured text, breaks it down, and indexes it so the
+              AI can navigate thousands of pages of messy documentation
+              in milliseconds.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Do we have to replace our existing software?</summary>
+            <div class="faq-body">
+              Not at all. Our philosophy is the opposite. We don't ask
+              you to learn a new platform. We build the AI to live
+              inside the tools your team already uses every day, making
+              your existing stack significantly smarter.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>What systems can you connect AI to?</summary>
+            <div class="faq-body">
+              Pretty much anything. Standard cloud databases, custom
+              internal APIs, older local file systems. We build the
+              custom MCP connectors to bridge them all together.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Does the agent run with no human oversight?</summary>
+            <div class="faq-body">
+              Only as much as you want it to. We build these systems
+              with human-in-the-loop guardrails. The agent can do the
+              heavy lifting and then pause for a manager's approval
+              before anything goes live, or operate fully autonomously
+              once you've earned confidence.
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
     <section id="about" class="about">
       <div class="container about-grid">
         <div class="about-copy">
@@ -424,28 +563,44 @@
             are small, senior, and outcome-driven.
           </p>
           <p>
-            We don't sell off-the-shelf software. We build custom, deeply
-            integrated AI solutions that act as an operating system for your
-            business operations, and we measure success by hours returned to
-            your team and revenue moved into the pipeline.
+            We don't sell off-the-shelf software. We build custom,
+            integrated AI that runs inside your existing stack. Success
+            is measured in hours returned to your team and revenue
+            moved into the pipeline.
           </p>
         </div>
-        <div class="stats">
-          <div class="stat">
-            <div class="stat-num">100%</div>
-            <div class="stat-label">Custom-engineered solutions</div>
+        <div class="principles" aria-label="Every engagement includes">
+          <div class="principle">
+            <div class="principle-num">01</div>
+            <div class="principle-title">Grounded by default</div>
+            <div class="principle-body">
+              Every model output is traceable to a source document. No
+              fabricated facts, no invented policies.
+            </div>
           </div>
-          <div class="stat">
-            <div class="stat-num">24/7</div>
-            <div class="stat-label">Autonomous workflow uptime</div>
+          <div class="principle">
+            <div class="principle-num">02</div>
+            <div class="principle-title">Private by architecture</div>
+            <div class="principle-body">
+              Your data stays inside your walls. We don't train public
+              models on your information.
+            </div>
           </div>
-          <div class="stat">
-            <div class="stat-num">0</div>
-            <div class="stat-label">Hallucinations on grounded data</div>
+          <div class="principle">
+            <div class="principle-num">03</div>
+            <div class="principle-title">Senior, not staffed</div>
+            <div class="principle-body">
+              You work with the engineer building your system, not a
+              team of juniors behind an account manager.
+            </div>
           </div>
-          <div class="stat">
-            <div class="stat-num">∞</div>
-            <div class="stat-label">Tools your agent can reach</div>
+          <div class="principle">
+            <div class="principle-num">04</div>
+            <div class="principle-title">Integrate, not replace</div>
+            <div class="principle-body">
+              We live inside the tools your team already uses, not a new
+              platform to learn.
+            </div>
           </div>
         </div>
       </div>
@@ -461,11 +616,15 @@
             an entire operations stack, we'll scope a path forward in one
             conversation.
           </p>
-          <ul class="contact-meta">
-            <li><span>Discovery calls</span> 30 minutes, no obligation</li>
-            <li><span>Engagement model</span> Project, retainer, or fractional</li>
-            <li><span>Response time</span> Within one business day</li>
-          </ul>
+          <div class="expect-block" aria-label="What to expect from a discovery call">
+            <p class="expect-header">A 30-minute discovery call. Zero pressure. You walk away with:</p>
+            <ul class="expect-list">
+              <li>A concrete sketch of what's possible against your stack</li>
+              <li>An honest read on cost and timeline</li>
+              <li>The right next step, even if it's not us</li>
+            </ul>
+            <p class="expect-footer">Reply within one business day. Project, retainer, or fractional.</p>
+          </div>
         </div>
         <form
           class="contact-form"
@@ -525,7 +684,11 @@
     </div>
     <div class="container footer-bottom">
       <span>© <span id="year"></span> Custom Skills LLC. All rights reserved.</span>
-      <span>Built for businesses that ship.</span>
+      <nav class="footer-legal" aria-label="Legal">
+        <a href="/privacy.html">Privacy</a>
+        <span aria-hidden="true">·</span>
+        <a href="/terms.html">Terms</a>
+      </nav>
     </div>
   </footer>
 
@@ -575,7 +738,7 @@
       <div class="concierge-messages" id="concierge-messages" aria-live="polite">
         <div class="concierge-msg concierge-msg-assistant">
           <div class="concierge-bubble">
-            Hi — I'm the Custom Skills LLC concierge. Ask me anything about our
+            Hi, I'm the Custom Skills LLC concierge. Ask me anything about our
             RAG, MCP, agentic, internal-ops, or app-development work. I cite
             the sections I'm reading from so you can verify what I say.
           </div>

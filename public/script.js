@@ -72,7 +72,7 @@ if (contactForm) {
       if (res.ok) {
         contactForm.reset();
         status.className = 'form-status form-status-success';
-        status.textContent = "Thanks — we'll be in touch within one business day.";
+        status.textContent = "Thanks, we'll be in touch within one business day.";
         submitBtn.textContent = 'Sent';
       } else {
         const data = await res.json().catch(() => ({}));
@@ -124,15 +124,63 @@ if (contactForm) {
   // Conversation history sent to the API. We do NOT include the greeting.
   const history = [];
 
+  // Session ID for log correlation
+  const sessionId =
+    (crypto && crypto.randomUUID && crypto.randomUUID()) ||
+    String(Date.now()) + '-' + Math.random().toString(36).slice(2, 10);
+  let loggedAtTurns = 0; // how many user turns were in the last log we sent
+
   function setOpen(open) {
     root.dataset.state = open ? 'open' : 'closed';
     launcher.setAttribute('aria-expanded', String(open));
     panel.setAttribute('aria-hidden', String(!open));
     if (open) setTimeout(() => textarea.focus(), 150);
+    if (!open) logConversation();
   }
+
+  function userTurnCount() {
+    return history.filter((m) => m.role === 'user' && (m.content || '').trim()).length;
+  }
+
+  function logConversation() {
+    const turns = userTurnCount();
+    if (turns === 0 || turns === loggedAtTurns) return;
+    loggedAtTurns = turns;
+    const payload = JSON.stringify({
+      sessionId,
+      pageUrl: location.href,
+      messages: history,
+    });
+    try {
+      const blob = new Blob([payload], { type: 'application/json' });
+      if (navigator.sendBeacon && navigator.sendBeacon('/api/log-chat', blob)) {
+        return;
+      }
+    } catch {
+      // fall through
+    }
+    fetch('/api/log-chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: payload,
+      keepalive: true,
+    }).catch(() => {});
+  }
+
+  // Fire a final log on tab close / navigate-away
+  window.addEventListener('pagehide', logConversation);
+  window.addEventListener('beforeunload', logConversation);
 
   launcher.addEventListener('click', () => setOpen(true));
   closeBtn.addEventListener('click', () => setOpen(false));
+
+  // Any element with [data-open-concierge] opens the widget on click
+  document.querySelectorAll('[data-open-concierge]').forEach((el) => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      setOpen(true);
+    });
+  });
 
   // Esc closes the panel
   document.addEventListener('keydown', (e) => {

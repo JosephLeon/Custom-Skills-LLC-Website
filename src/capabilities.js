@@ -214,15 +214,24 @@ applications, mobile experiences, marketing sites, and internal tools,
 engineered to host the reasoning engines we build or to stand on their
 own.
 
+We're stack-agnostic: we work in whatever language and framework
+fits the client's existing systems and the problem at hand. In
+practice, that's most often TypeScript and React/Next.js on the
+front end, and Python, Node, or Go on the back end. Most of our
+AI work is in Python because the AI ecosystem lives there, but we
+ship production systems in many languages.
+
 What we build:
-- Full-stack web applications in React, Next.js, and TypeScript
+- Full-stack applications and APIs across modern stacks (TypeScript,
+  Python, Go, React, Next.js, and others as the project requires)
+- AI-heavy backends, agents, and data pipelines, typically in Python
 - Mobile and cross-platform builds
 - Marketing sites, landing pages, and SEO-tuned funnels
 - Internal dashboards, admin tooling, and client portals
 
 This practice exists because clients who buy AI integrations almost
-always need the surrounding application surface to use them — chat UIs,
-admin panels, marketing pages, customer dashboards. Having both
+always need the surrounding application surface to use them: chat
+UIs, admin panels, marketing pages, customer dashboards. Having both
 disciplines in-house removes handoffs.`,
   },
 

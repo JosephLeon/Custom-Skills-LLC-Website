@@ -401,12 +401,42 @@ p { margin: 0 0 1em; color: var(--text-muted); }
 }
 .hero-chat-placeholder {
   flex: 1;
-  padding: 8px 12px;
+  height: 36px;
+  padding: 0 12px;
+  box-sizing: border-box;
   font-size: 0.87rem;
+  line-height: 1;
   color: var(--text-dim);
   background: var(--bg);
   border: 1px solid var(--border-strong);
   border-radius: 9px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.hero-chat-typed {
+  display: inline-block;
+  max-width: calc(100% - 6px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.hero-chat-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 14px;
+  background: var(--accent);
+  margin-left: 2px;
+  flex: none;
+  animation: heroChatCursor 1s steps(2, end) infinite;
+}
+@keyframes heroChatCursor {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-chat-cursor { animation: none; opacity: 1; }
 }
 .hero-chat-send {
   flex: none;

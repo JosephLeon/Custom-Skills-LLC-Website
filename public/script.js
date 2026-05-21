@@ -95,6 +95,83 @@ if (contactForm) {
 }
 
 // =============================================================
+// Hero chat preview — typewriter that cycles sample questions
+// =============================================================
+(() => {
+  const target = document.querySelector('[data-typewriter]');
+  if (!target) return;
+
+  // Respect users' motion preference
+  const prefersReducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  ).matches;
+  if (prefersReducedMotion) return; // keep the static initial text
+
+  const PHRASES = [
+    'How is RAG different from a custom GPT?',
+    'What systems can you connect to?',
+    'Is our data safe with you?',
+    "What's an example of an agentic workflow?",
+  ];
+
+  const TYPE_MS = 55;
+  const ERASE_MS = 25;
+  const HOLD_TYPED_MS = 1800;
+  const HOLD_EMPTY_MS = 350;
+
+  let phraseIdx = 0;
+  let cancelled = false;
+
+  // Pause the typewriter when the tab is hidden so background tabs don't
+  // race through phrases pointlessly.
+  let paused = document.visibilityState === 'hidden';
+  document.addEventListener('visibilitychange', () => {
+    paused = document.visibilityState === 'hidden';
+  });
+
+  const sleep = (ms) =>
+    new Promise((resolve) => {
+      const tick = () => {
+        if (cancelled) return resolve();
+        if (paused) {
+          setTimeout(tick, 200); // recheck soon
+        } else {
+          setTimeout(resolve, ms);
+        }
+      };
+      tick();
+    });
+
+  async function loop() {
+    // Clear the initial static text so we type from a blank slate
+    target.textContent = '';
+    while (!cancelled) {
+      const phrase = PHRASES[phraseIdx];
+      // Type characters
+      for (let i = 1; i <= phrase.length; i++) {
+        if (cancelled) return;
+        target.textContent = phrase.slice(0, i);
+        await sleep(TYPE_MS + (Math.random() * 30 - 15)); // slight jitter
+      }
+      await sleep(HOLD_TYPED_MS);
+      // Erase characters
+      for (let i = phrase.length - 1; i >= 0; i--) {
+        if (cancelled) return;
+        target.textContent = phrase.slice(0, i);
+        await sleep(ERASE_MS);
+      }
+      await sleep(HOLD_EMPTY_MS);
+      phraseIdx = (phraseIdx + 1) % PHRASES.length;
+    }
+  }
+
+  // Stop the typewriter if the hero element ever gets removed
+  window.addEventListener('pagehide', () => { cancelled = true; });
+
+  loop();
+})();
+
+// =============================================================
 // Concierge chat widget
 // =============================================================
 (() => {

@@ -262,11 +262,110 @@ if (contactForm) {
     // available again.
     if (open) {
       panel.removeAttribute('inert');
+      // Lazy-init Turnstile on first open so non-chat visitors don't pay
+      // the script-download cost.
+      ensureTurnstile();
     } else {
       panel.setAttribute('inert', '');
     }
     if (open) setTimeout(() => textarea.focus(), 150);
     if (!open) logConversation();
+  }
+
+  // ---------- Turnstile (bot challenge) ----------
+  let turnstileSitekey = null;
+  let turnstileReady = false;
+  let turnstileWidgetId = null;
+  let turnstileInitPromise = null;
+
+  async function fetchConfig() {
+    try {
+      const res = await fetch('/api/config', { cache: 'no-store' });
+      if (!res.ok) return {};
+      return await res.json();
+    } catch {
+      return {};
+    }
+  }
+
+  function loadTurnstileScript() {
+    return new Promise((resolve, reject) => {
+      if (window.turnstile) return resolve();
+      const s = document.createElement('script');
+      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      s.async = true;
+      s.defer = true;
+      s.onload = () => resolve();
+      s.onerror = () => reject(new Error('Failed to load Turnstile'));
+      document.head.appendChild(s);
+    });
+  }
+
+  function ensureTurnstile() {
+    if (turnstileInitPromise) return turnstileInitPromise;
+    turnstileInitPromise = (async () => {
+      const cfg = await fetchConfig();
+      if (!cfg.turnstileSitekey) {
+        // Turnstile not configured server-side; skip silently.
+        // (Server-side will also skip validation, so the chat still works.)
+        return;
+      }
+      turnstileSitekey = cfg.turnstileSitekey;
+      await loadTurnstileScript();
+      // Render an invisible widget anchored to a hidden container
+      let container = document.getElementById('concierge-turnstile');
+      if (!container) {
+        container = document.createElement('div');
+        container.id = 'concierge-turnstile';
+        container.style.cssText = 'position:fixed;bottom:0;right:0;width:0;height:0;overflow:hidden;pointer-events:none;';
+        document.body.appendChild(container);
+      }
+      // Wait for window.turnstile to be available (it's loaded async)
+      const waitForApi = () =>
+        new Promise((resolve) => {
+          const tick = () => {
+            if (window.turnstile && window.turnstile.render) return resolve();
+            setTimeout(tick, 50);
+          };
+          tick();
+        });
+      await waitForApi();
+      turnstileWidgetId = window.turnstile.render(container, {
+        sitekey: turnstileSitekey,
+        size: 'invisible',
+        // We call execute() explicitly before each chat submit.
+        // execution: 'execute' delays token generation until we ask.
+        execution: 'execute',
+      });
+      turnstileReady = true;
+    })().catch(() => {
+      // Failure to init Turnstile shouldn't block the chat entirely.
+      // If the server REQUIRES a token (TURNSTILE_SECRET set), the
+      // request will fail and the user sees a clear error. If it
+      // doesn't, things just work.
+    });
+    return turnstileInitPromise;
+  }
+
+  async function getTurnstileToken() {
+    if (!turnstileSitekey) return null;
+    if (!turnstileReady) await ensureTurnstile();
+    if (!turnstileReady || !window.turnstile || turnstileWidgetId == null) return null;
+    return new Promise((resolve) => {
+      try {
+        window.turnstile.execute(turnstileWidgetId, {
+          callback: (token) => {
+            // Reset for next use so we can issue a new token
+            try { window.turnstile.reset(turnstileWidgetId); } catch {}
+            resolve(token || null);
+          },
+          'error-callback': () => resolve(null),
+          'timeout-callback': () => resolve(null),
+        });
+      } catch {
+        resolve(null);
+      }
+    });
   }
 
   launcher.addEventListener('click', () => setOpen(true));
@@ -371,10 +470,18 @@ if (contactForm) {
     const bubble = assistantEl.querySelector('.concierge-bubble');
 
     try {
+      // Get a fresh Turnstile token (no-op if Turnstile isn't configured)
+      const turnstileToken = await getTurnstileToken();
+      const headers = { 'Content-Type': 'application/json' };
+      if (turnstileToken) headers['X-Turnstile-Token'] = turnstileToken;
+
       const res = await fetch('/api/chat', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: history }),
+        headers,
+        body: JSON.stringify({
+          messages: history,
+          ...(turnstileToken ? { turnstileToken } : {}),
+        }),
       });
 
       if (!res.ok || !res.body) {

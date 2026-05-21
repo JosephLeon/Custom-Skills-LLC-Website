@@ -23,6 +23,23 @@ export default {
       return handleLogChat(request, env, ctx);
     }
 
+    if (url.pathname === "/api/config") {
+      // Public bootstrap config for the frontend (Turnstile sitekey).
+      // No secrets here — sitekey is meant to be public.
+      return new Response(
+        JSON.stringify({
+          turnstileSitekey: env.TURNSTILE_SITEKEY || "",
+        }),
+        {
+          status: 200,
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "public, max-age=300", // 5 min
+          },
+        }
+      );
+    }
+
     return env.ASSETS.fetch(request);
   },
 };

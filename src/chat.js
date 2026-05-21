@@ -5,9 +5,11 @@
 //   ANTHROPIC_API_KEY  — your key from console.anthropic.com
 
 import { formatCapabilitiesForPrompt, CAPABILITIES } from "./capabilities.js";
+import { guardChatRequest } from "./abuse-guard.js";
 
 const MODEL = "claude-haiku-4-5-20251001";
 const MAX_TOKENS = 800;
+const MAX_MESSAGE_CHARS = 1000;
 
 const SYSTEM_PROMPT = `You are the AI concierge for Custom Skills LLC, an AI strategy and implementation studio. Your job is to answer questions from prospective clients using ONLY the source material below.
 
@@ -32,6 +34,11 @@ export async function handleChat(request, env) {
     );
   }
 
+  // Run all cheap abuse defenses BEFORE the expensive Claude call.
+  // (Origin check → Rate limit → Turnstile)
+  const guard = await guardChatRequest(request, env);
+  if (!guard.ok) return guard.response;
+
   let payload;
   try {
     payload = await request.json();
@@ -47,7 +54,7 @@ export async function handleChat(request, env) {
   // Cap conversation length so a misbehaving client cannot blow up the bill.
   const trimmed = messages.slice(-20).map((m) => ({
     role: m.role === "assistant" ? "assistant" : "user",
-    content: String(m.content || "").slice(0, 4000),
+    content: String(m.content || "").slice(0, MAX_MESSAGE_CHARS),
   }));
 
   const upstream = await fetch("https://api.anthropic.com/v1/messages", {

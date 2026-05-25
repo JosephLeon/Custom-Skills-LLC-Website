@@ -4,6 +4,10 @@
   "main": "src/index.js",
   "compatibility_date": "2026-05-20",
   "compatibility_flags": ["nodejs_compat"],
+  // Preserve plaintext variables added in the Cloudflare dashboard.
+  // Without this, `wrangler deploy` removes any dashboard variables that
+  // aren't declared in this file on every deploy. Secrets are unaffected.
+  "keep_vars": true,
   "observability": {
     "enabled": true
   },

@@ -11,11 +11,8 @@
     "directory": "./public",
     "binding": "ASSETS",
     "not_found_handling": "404-page"
-  }
-  // To enable per-IP rate-limiting on /api/chat, add a KV binding here
-  // after creating the namespace (see CHATBOT.md "Abuse protection"):
-  //
-  //   "kv_namespaces": [
-  //     { "binding": "RATE_LIMIT", "id": "<your-kv-namespace-id>" }
-  //   ]
+  },
+  "kv_namespaces": [
+    { "binding": "RATE_LIMIT", "id": "86a8aa90786d4e2aa6e33f6e771bb446" }
+  ]
 }

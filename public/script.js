@@ -198,6 +198,7 @@ if (contactForm) {
     agentic: { title: 'Agentic Operations & Marketing', anchor: 'service-agentic' },
     internal: { title: 'Internal Business Solutions', anchor: 'service-internal' },
     'app-web-development': { title: 'Application & Web Development', anchor: 'service-app-web' },
+    'cadence-lab': { title: 'Cadence Lab (Featured Work)', anchor: 'work' },
     engagement: { title: 'Engagement Model', anchor: 'contact' },
   };
 
@@ -230,6 +231,11 @@ if (contactForm) {
       'What stacks do you work in?',
       'Do you do mobile apps too?',
       'Can you build the UI around a RAG backend?',
+    ],
+    'cadence-lab': [
+      'What stack is Cadence Lab built in?',
+      'How does the agentic review layer work?',
+      'Could you build something similar for us?',
     ],
     engagement: [
       'What does a typical engagement look like?',

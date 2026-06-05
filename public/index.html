@@ -315,6 +315,7 @@
       <nav class="primary-nav" aria-label="Primary">
         <a href="#services">Services</a>
         <a href="#approach">Approach</a>
+        <a href="#work">Work</a>
         <a href="#faq">FAQ</a>
         <a href="#about">About</a>
         <a href="#contact" class="nav-cta">Contact</a>
@@ -608,6 +609,75 @@
       </div>
     </section>
 
+    <section id="work" class="work">
+      <div class="container">
+        <header class="section-header">
+          <div class="eyebrow">Featured Work</div>
+          <h2>We don't just talk about it. We ship it.</h2>
+          <p class="section-sub">
+            One example of the same patterns we deliver to clients, built in the open so you can audit the engineering before you hire it.
+          </p>
+        </header>
+
+        <article class="work-card">
+          <div class="work-visual" aria-hidden="true">
+            <div class="work-window">
+              <div class="work-window-header">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+                <span class="work-window-title">Cadence Lab — timeline</span>
+              </div>
+              <div class="work-timeline">
+                <div class="work-clip work-clip-keep" style="--w: 14%">keep</div>
+                <div class="work-clip work-clip-cut" style="--w: 8%">filler</div>
+                <div class="work-clip work-clip-keep" style="--w: 22%">keep</div>
+                <div class="work-clip work-clip-cut" style="--w: 6%">um</div>
+                <div class="work-clip work-clip-keep" style="--w: 18%">keep</div>
+                <div class="work-clip work-clip-cut" style="--w: 5%">breath</div>
+                <div class="work-clip work-clip-keep" style="--w: 16%">keep</div>
+                <div class="work-clip work-clip-cut" style="--w: 4%">retake</div>
+                <div class="work-clip work-clip-keep" style="--w: 7%">keep</div>
+              </div>
+              <div class="work-window-footer">
+                <span class="work-stat">
+                  <span class="work-stat-num">23</span>
+                  <span class="work-stat-label">edits proposed</span>
+                </span>
+                <span class="work-stat">
+                  <span class="work-stat-num">6.4 min</span>
+                  <span class="work-stat-label">removed</span>
+                </span>
+                <span class="work-stat work-stat-cta">Review →</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="work-content">
+            <div class="work-label">Open Source · 2026</div>
+            <h3 class="work-title">Cadence Lab</h3>
+            <p class="work-tagline">A semantic AI video editor that edits by listening, not by scrubbing.</p>
+            <p class="work-desc">
+              We built Cadence Lab to validate a thesis: LLMs make better editing decisions than waveform thresholds because they understand context. Transcripts get classified by Claude into <em>keep</em>, <em>filler</em>, <em>retake</em>, <em>breath</em>, and more. An agentic review layer lets users refine the cuts in natural language. The whole pipeline is open source.
+            </p>
+
+            <ul class="work-tags" aria-label="Techniques demonstrated">
+              <li>Grounded LLM classification</li>
+              <li>Multi-stage agentic pipeline</li>
+              <li>Claude tool-use (MCP-style)</li>
+              <li>Production Python + React + Tauri</li>
+              <li>Hardware-aware rendering</li>
+            </ul>
+
+            <div class="work-actions">
+              <a href="https://cadencelab.dev" class="btn btn-primary" target="_blank" rel="noopener">Visit cadencelab.dev →</a>
+              <a href="https://github.com/JosephLeon/Cadence-Lab" class="btn btn-ghost" target="_blank" rel="noopener">View source on GitHub →</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <section id="faq" class="faq">
       <div class="container">
         <header class="section-header">
@@ -889,7 +959,7 @@
             Is our data safe with you?
           </button>
           <button type="button" class="concierge-suggestion" role="listitem">
-            What's an example of an agentic workflow?
+            Show me an example of your work
           </button>
         </div>
       </div>

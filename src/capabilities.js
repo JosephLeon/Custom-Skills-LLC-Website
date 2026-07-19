@@ -257,8 +257,8 @@ The studio's three-step delivery pattern:
    human-in-the-loop controls, observability, and continuous evaluation.
 
 To start a conversation, prospects can use the contact form on this
-site, which routes to contact@customskillsllc.com. Discovery calls are
-30 minutes, no obligation, with a response within one business day.`,
+site. Discovery calls are 30 minutes, no obligation, with a response
+within one business day.`,
   },
 ];
 

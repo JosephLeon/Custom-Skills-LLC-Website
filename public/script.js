@@ -78,7 +78,7 @@ if (contactForm) {
         const data = await res.json().catch(() => ({}));
         const msg =
           (data.errors && data.errors.map((x) => x.message).join(', ')) ||
-          'Something went wrong. Please email contact@customskillsllc.com directly.';
+          'Something went wrong. Please try again or use the contact form on this page.';
         status.className = 'form-status form-status-error';
         status.textContent = msg;
         submitBtn.disabled = false;
@@ -87,7 +87,7 @@ if (contactForm) {
     } catch (err) {
       status.className = 'form-status form-status-error';
       status.textContent =
-        'Network error. Please email contact@customskillsllc.com directly.';
+        'Network error. Please try again or use the contact form on this page.';
       submitBtn.disabled = false;
       submitBtn.textContent = originalBtnText;
     }

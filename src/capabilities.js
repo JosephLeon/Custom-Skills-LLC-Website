@@ -1,4 +1,4 @@
-// Structured knowledge base for the Custom Skills LLC concierge.
+// Structured knowledge base for the Context Bridge Works concierge.
 // Each section is independently citable via its `id`.
 // Edit this file to update what the chatbot knows.
 
@@ -6,7 +6,7 @@ export const CAPABILITIES = [
   {
     id: "overview",
     title: "Overview",
-    body: `Custom Skills LLC provides end-to-end AI engineering and strategic
+    body: `Context Bridge Works provides end-to-end AI engineering and strategic
 integration. We transform raw data into autonomous business assets. Our
 focus is on building "reasoning engines" — systems that don't just process
 text, but execute complex workflows, manage internal knowledge, and engage
@@ -23,7 +23,7 @@ systems, not pilots that die in the demo.`,
   {
     id: "services-summary",
     title: "Services Summary",
-    body: `Custom Skills LLC offers five interconnected practices:
+    body: `Context Bridge Works offers five interconnected practices:
 
 1. Knowledge Orchestration & RAG — grounding AI in your private data with
    retrieval-augmented generation and vector databases.

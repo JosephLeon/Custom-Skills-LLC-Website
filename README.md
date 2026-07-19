@@ -1,4 +1,4 @@
-# Custom Skills LLC — Website
+# Context Bridge Works — Website
 
 Marketing site and live RAG concierge for
 [contextbridgeworks.com](https://contextbridgeworks.com)
@@ -134,4 +134,4 @@ degrades — the site still works, just with one less layer of protection.
 
 ## License
 
-Proprietary. © Custom Skills LLC.
+Proprietary. © Context Bridge Works.

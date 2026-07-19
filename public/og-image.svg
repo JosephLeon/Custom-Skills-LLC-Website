@@ -37,13 +37,13 @@
           font-weight="800"
           font-size="38"
           letter-spacing="-1.5"
-          fill="#0a0e1a">CS</text>
+          fill="#0a0e1a">CB</text>
     <text x="100" y="40"
           dominant-baseline="central"
           font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
           font-weight="700"
           font-size="28"
-          fill="#ffffff">Custom Skills <tspan fill="#6b7691" font-weight="500">LLC</tspan></text>
+          fill="#ffffff">Context Bridge <tspan fill="#6b7691" font-weight="500">Works</tspan></text>
   </g>
 
   <!-- Eyebrow -->

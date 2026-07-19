@@ -236,51 +236,6 @@ disciplines in-house removes handoffs.`,
   },
 
   {
-    id: "cadence-lab",
-    title: "Cadence Lab (Featured Work)",
-    body: `Cadence Lab is an open-source semantic AI video editor built by
-Custom Skills LLC. It's the studio's featured public work and a
-concrete demonstration of every service practice in one product. It
-is free and open source. It is NOT a service Custom Skills LLC sells,
-but it shows what Custom Skills can build for clients.
-
-What it does:
-Cadence Lab edits long-form spoken-word video by listening to the
-transcript instead of scrubbing the waveform. It transcribes audio
-with Whisper, sends the transcript to Claude for context-aware
-classification of every pause (filler, hesitation, breath, emphasis,
-pre-laughter, transition, listening), then proposes cuts with a
-human-in-the-loop review UI. An agentic "Ask Cadence" layer lets
-users refine edits in natural language.
-
-Why it exists:
-The studio built Cadence Lab to validate one thesis: LLMs make
-better editing decisions than waveform thresholds because they
-understand context. The product is open source so clients can audit
-the engineering quality before hiring Custom Skills LLC.
-
-What it demonstrates that Custom Skills sells:
-- Grounded LLM classification (the same RAG pattern, applied to
-  transcripts instead of documents)
-- A multi-stage agentic pipeline (transcribe → classify → splice →
-  render → review)
-- Claude tool-use, MCP-style, for the conversational refinement layer
-- Hardware-aware engineering (Apple Silicon video encoding at 5–15x
-  CPU)
-- A production-grade application stack: Python + FastAPI on the
-  backend, React 19 + TypeScript + Tauri 2 for the native desktop
-  shell, plus the cadencelab.dev marketing site
-
-Where to find it:
-- Marketing site: https://cadencelab.dev
-- Source code: https://github.com/JosephLeon/Cadence-Lab
-
-Cost note for users: Cadence Lab uses your own Anthropic and Groq
-API keys, so per-video cost is in the $0.60-$2.00 range for a
-30-minute video.`,
-  },
-
-  {
     id: "engagement",
     title: "Engagement Model",
     body: `Engagements come in three shapes:

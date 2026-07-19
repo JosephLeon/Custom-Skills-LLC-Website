@@ -5,9 +5,38 @@
 import { handleChat } from "./chat.js";
 import { handleLogChat } from "./log-chat.js";
 
+/** Canonical production host. */
+const PRIMARY_HOST = "contextbridgeworks.com";
+
+/**
+ * Hosts that permanently redirect (301) to PRIMARY_HOST, preserving
+ * path + query. Keep both apex and www for the old brand, plus www
+ * of the new brand so everything converges on the apex.
+ */
+const REDIRECT_HOSTS = new Set([
+  "customskillsllc.com",
+  "www.customskillsllc.com",
+  "www.contextbridgeworks.com",
+]);
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
+    const host = url.hostname.toLowerCase();
+
+    if (REDIRECT_HOSTS.has(host)) {
+      url.hostname = PRIMARY_HOST;
+      url.protocol = "https:";
+      url.port = "";
+      return new Response(null, {
+        status: 301,
+        headers: {
+          Location: url.toString(),
+          // Cache the redirect so clients and CDNs stop hitting the old host.
+          "Cache-Control": "public, max-age=86400",
+        },
+      });
+    }
 
     if (url.pathname === "/api/chat") {
       if (request.method !== "POST") {

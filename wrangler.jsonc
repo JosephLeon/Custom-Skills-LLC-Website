@@ -4,6 +4,8 @@
   "main": "src/index.js",
   "compatibility_date": "2026-05-20",
   "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "preview_urls": true,
   // Preserve plaintext variables added in the Cloudflare dashboard.
   // Without this, `wrangler deploy` removes any dashboard variables that
   // aren't declared in this file on every deploy. Secrets are unaffected.
@@ -14,8 +16,18 @@
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
+    // Required so host redirects run before static files are served.
+    "run_worker_first": true
   },
+  // Primary + legacy hosts. custom_domain=true makes the Worker the
+  // origin and provisions DNS/SSL when the zone is on this account.
+  "routes": [
+    { "pattern": "contextbridgeworks.com", "custom_domain": true },
+    { "pattern": "www.contextbridgeworks.com", "custom_domain": true },
+    { "pattern": "customskillsllc.com", "custom_domain": true },
+    { "pattern": "www.customskillsllc.com", "custom_domain": true }
+  ],
   "kv_namespaces": [
     { "binding": "RATE_LIMIT", "id": "86a8aa90786d4e2aa6e33f6e771bb446" }
   ]

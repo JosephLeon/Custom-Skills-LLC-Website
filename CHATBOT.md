@@ -79,7 +79,8 @@ The `/api/chat` endpoint runs three layers of defenses BEFORE calling
 Claude, each gracefully degrading if not configured:
 
 1. **Origin / Referer allowlist.** Always on. Only requests from
-   `customskillsllc.com`, `www.customskillsllc.com`,
+   `contextbridgeworks.com`, `www.contextbridgeworks.com`,
+   legacy `customskillsllc.com` / `www`,
    `customskillsllc.joseph-354.workers.dev`, `localhost`, and
    `127.0.0.1` are accepted. Extra hosts can be added via the
    `ALLOWED_HOSTS` env var (comma-separated hostnames).
@@ -107,7 +108,7 @@ your safety net even if every other defense fails.
 ### Setting up Turnstile (free, ~10 min)
 
 1. https://dash.cloudflare.com → **Turnstile** → **Add Site**
-2. Domain: `customskillsllc.com` (or your workers.dev URL for testing)
+2. Domain: `contextbridgeworks.com` (also add legacy `customskillsllc.com` if still in use)
 3. Widget type: **Invisible**
 4. Copy the **Site Key** and **Secret Key**
 5. In your Worker project → **Settings → Variables and Secrets**:
@@ -150,14 +151,14 @@ terminal that isn't your whitelisted IP:
 ```sh
 # Should return 403 (no allowed Origin header)
 curl -s -o /dev/null -w "%{http_code}\n" \
-  -X POST https://customskillsllc.com/api/chat \
+  -X POST https://contextbridgeworks.com/api/chat \
   -H "Content-Type: application/json" \
   -d '{"messages":[{"role":"user","content":"hi"}]}'
 
 # Should also return 403 (Origin spoofed but no Turnstile token)
 curl -s -o /dev/null -w "%{http_code}\n" \
-  -X POST https://customskillsllc.com/api/chat \
+  -X POST https://contextbridgeworks.com/api/chat \
   -H "Content-Type: application/json" \
-  -H "Origin: https://customskillsllc.com" \
+  -H "Origin: https://contextbridgeworks.com" \
   -d '{"messages":[{"role":"user","content":"hi"}]}'
 ```

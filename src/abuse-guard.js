@@ -10,6 +10,9 @@
 // skips rate-limiting. Origin check always runs.
 
 const ALWAYS_ALLOWED_HOSTS = new Set([
+  "contextbridgeworks.com",
+  "www.contextbridgeworks.com",
+  // Legacy brand — still allowed during redirect transition / bookmarks
   "customskillsllc.com",
   "www.customskillsllc.com",
   "customskillsllc.joseph-354.workers.dev",

@@ -1,6 +1,8 @@
 # Custom Skills LLC — Website
 
-Marketing site and live RAG concierge for [customskillsllc.com](https://customskillsllc.com).
+Marketing site and live RAG concierge for
+[contextbridgeworks.com](https://contextbridgeworks.com)
+(legacy: `customskillsllc.com` 301-redirects here).
 
 Deployed as a Cloudflare Worker with static-asset hosting. The site dog-foods
 the studio's core product: a chat widget grounded in the company's
@@ -79,8 +81,9 @@ git push origin master
 ```
 
 Within ~30 seconds the new version is live at
-`https://customskillsllc.joseph-354.workers.dev` and (once the custom
-domain is connected) at `https://customskillsllc.com`.
+`https://customskillsllc.joseph-354.workers.dev` and at the primary
+domain `https://contextbridgeworks.com`. Requests to
+`customskillsllc.com` / `www` permanently redirect (301) to the primary host.
 
 ## Configuration
 

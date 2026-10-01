@@ -22,7 +22,9 @@ relevant section of the page.
 | Analytics | Cloudflare Web Analytics (privacy-first) |
 | CI/CD | Cloudflare GitHub integration (auto-deploy on push to `master`) |
 
-No build step. No npm dependencies in the runtime code. Pure ES modules.
+No npm dependencies in the runtime code. Pure ES modules. The only build step
+(`build` in `wrangler.jsonc`, run automatically by `wrangler dev`/`deploy`)
+copies `public/` to `dist/` and minifies `script.js`. Edit files in `public/`.
 
 ## Project structure
 

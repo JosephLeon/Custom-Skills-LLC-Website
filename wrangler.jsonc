@@ -13,8 +13,13 @@
   "observability": {
     "enabled": true
   },
+  // Copy public/ to dist/ and minify script.js. Runs on deploy and dev.
+  "build": {
+    "command": "rm -rf dist && cp -R public dist && npx -y esbuild@0.28.2 public/script.js --minify --outfile=dist/script.js --log-level=warning",
+    "watch_dir": "public"
+  },
   "assets": {
-    "directory": "./public",
+    "directory": "./dist",
     "binding": "ASSETS",
     "not_found_handling": "404-page",
     // Required so host redirects run before static files are served.
